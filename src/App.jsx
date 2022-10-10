@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import Card from './components/card'
+import Pagination from './components/pagination'
 //import data from './data.json'
 
 /* let sample_data = data.slice(0,10);
@@ -8,28 +9,34 @@ console.log(sample_data); */
 
 function App() {
   const [dataBase, setDataBase] = useState([])
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(1)
   const [query, setQuery] = useState('')
-  console.log(dataBase)
-
+  const[hitsPerPage, setHitsPerPage] = useState(10)
+  console.log(page)
+  
   useEffect(() => {
     fetch(`https://634401cd2dadea1175b280ef.mockapi.io/Users`).then((response) => response.json()).then((output)=> setDataBase(output)).catch(() => {
       setError("Error: Fetching Failed");
     })
-  }, [])
+  }, [page, hitsPerPage])
   console.log(dataBase)
+  let counter = 0;
   return (
     <div className="App">
     {dataBase.length
       ? dataBase.map((person) => {
+        counter++;
+          if ((counter >= page * 10 - 9) && (counter <= page * 10)) {
           return (
-            <Card
+            <Card 
               {...person}
               key={person.id}
             />
           );
+          }
         })
       : 'no users yet'}
+      <Pagination page={page} setPage={setPage} rangeLength={10} maximum={dataBase.length} />
     
     </div>
   )

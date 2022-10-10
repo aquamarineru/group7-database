@@ -1,12 +1,11 @@
 export default function Card(carddata) {
-	console.log(carddata.id);
-	console.log(carddata);
 	return (
-		<div>
-			<p>{carddata.id}</p>
-			<p>{carddata.name}</p>
-			<p>{carddata.Country}</p>
-			<img src={carddata.avatar} alt="" />
-		</div>
+			<div className="userCards">
+				<p>{carddata.id}</p>
+				<img src={carddata.avatar} alt="" />
+				<p>{carddata.name}</p>
+				<p>{carddata.Country}</p>
+			</div>
+
 	);
 }
