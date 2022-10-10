@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import Card from './components/card'
-import Pagination from './components/pagination'
+//import Pagination from './components/pagination'
 //import data from './data.json'
 
 /* let sample_data = data.slice(0,10);
@@ -36,8 +36,12 @@ function App() {
           }
         })
       : 'no users yet'}
-      <Pagination page={page} setPage={setPage} rangeLength={10} maximum={dataBase.length} />
-    
+      <ul className='pagination'>
+        {[ ...Array(10)].map((_, i) => (
+        <li onClick={() => setPage(i + 1)} className={page === (i + 1) ? "active" : ""}>{i + 1}</li>)
+  )}
+      </ul>
+
     </div>
   )
 }
